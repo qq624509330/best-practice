@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 任务1 -->
+    <bean id="job1"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <bean class="io.spldeolin.bestpractice.util.AaaaJob" />
+        </property>
+        <property name="targetMethod" value="doJob" />
+        <property name="concurrent" value="false" />
+    </bean>
+    <!-- 触发器1 -->
+    <bean id="trigger1"
+        class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="job1" />
+        <property name="cronExpression" value="0 0 0 ? * MON" /><!-- 
+            每周一00:00 -->
+    </bean>
+
+    <!-- 任务2 -->
+    <bean id="job2"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <bean class="io.spldeolin.bestpractice.util.BbbbJob" />
+        </property>
+        <property name="targetMethod" value="doJob" />
+        <property name="concurrent" value="false" />
+    </bean>
+    <!-- 触发器2 -->
+    <bean id="trigger2"
+        class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="job2" />
+        <property name="startDelay" value="0" />
+        <property name="repeatInterval" value="5000" /><!-- 每5秒一次 -->
+    </bean>
+
+    <!-- 定时器 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="trigger1" />
+                <ref bean="trigger2" />
+            </list>
+        </property>
+    </bean>
+
+</beans>
