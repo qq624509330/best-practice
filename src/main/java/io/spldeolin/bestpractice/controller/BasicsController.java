@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import io.spldeolin.bestpractice.input.NameDateInput;
 import io.spldeolin.bestpractice.service.UserService;
+import io.spldeolin.bestpractice.util.HttpSessionUtil;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -38,20 +39,38 @@ public class BasicsController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 请求：转发到首页
+     *
+     * @return 转发地址
+     */
     @RequestMapping(value = "index")
     public String index() {
+        HttpSessionUtil.setAttribute("ses", "接收到了index()中存放的Session值");
         return "/html/index.html";
     }
 
+    /**
+     * 请求：转发到404页面
+     *
+     * @return 转发地址
+     */
     @RequestMapping("404")
     public String page404() {
         LOG.info("进入404页面");
+        LOG.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http404.html";
     }
 
+    /**
+     * 请求：转发到500页面
+     *
+     * @return 转发地址
+     */
     @RequestMapping("500")
     public String page500() {
         LOG.info("进入500页面");
+        LOG.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http500.html";
     }
 
