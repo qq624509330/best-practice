@@ -18,6 +18,7 @@
 - JQuery Form
 - Quartz
 - Redis
+- Shiro
 - ...
 
 <br>克隆地址：

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myShiroRealm" class="io.spldeolin.bestpractice.shiro.component.Realm">
+        <property name="cacheManager" ref="cacheManager" />
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myShiroRealm" />
+        <property name="cacheManager" ref="cacheManager" />
+        <property name="sessionManager" ref="sessionManager" />
+    </bean>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionIdUrlRewritingEnabled" value="false" />
+        <property name="globalSessionTimeout" value="3600000" />
+    </bean>
+
+    <!-- 自带的、缓存在内存的、不支持集群的缓存管理器 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />
+        <!-- loginUrl 未认证时，访问需要认证资源时的重定向url -->
+        <property name="loginUrl" value="/" />
+        <!-- successUrl 登录成功后的重定向url -->
+        <property name="successUrl" value="/loginsuccess.jhtml" />
+        <!-- unauthorizedUrl 访问无权限资源时的重定向url -->
+        <property name="unauthorizedUrl" value="/error.jhtml" />
+        <property name="filterChainDefinitions">
+            <value>
+                /login.html = anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager" />
+    </bean>
+
+</beans>
