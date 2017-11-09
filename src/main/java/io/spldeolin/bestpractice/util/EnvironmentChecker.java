@@ -26,7 +26,7 @@ public class EnvironmentChecker {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/best-practice?characterEncoding=UTF-8&useSSL=false", "root", "root");
+                    "jdbc:mysql://localhost:3306/best_practice?characterEncoding=UTF-8&useSSL=false", "root", "root");
         } catch (Exception e) {
             LOG.error("Mysql无法连接，系统关闭");
             System.exit(0);

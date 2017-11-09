@@ -31,8 +31,7 @@
         <property name="unauthorizedUrl" value="/error.jhtml" />
         <property name="filterChainDefinitions">
             <value>
-                /login.html = anon
-                /** = authc
+                /** = anon
             </value>
         </property>
     </bean>
