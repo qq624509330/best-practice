@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import io.spldeolin.bestpractice.input.NameDateInput;
+import io.spldeolin.bestpractice.po.TimePo;
+import io.spldeolin.bestpractice.service.TimeService;
 import io.spldeolin.bestpractice.service.UserService;
 import io.spldeolin.bestpractice.util.HttpSessionUtil;
 import redis.clients.jedis.Jedis;
@@ -38,6 +43,9 @@ public class BasicsController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TimeService timeService;
 
     /**
      * 请求：转发到首页
@@ -76,7 +84,7 @@ public class BasicsController {
 
     /**
      * 请求：测试<br>
-     * ajax、数据绑定、jsr303、日志、mybatis、事务、返回值转换为json
+     * ajax、数据绑定、jsr303、jsr310（mybatis）、日志、mybatis、事务、返回值转换为json
      *
      * @author Deolin
      */
@@ -92,7 +100,24 @@ public class BasicsController {
         } catch (Exception e) {
             LOG.warn("异常抛出前插入的数据被回滚了，没有数据被插入");
         }
+        LOG.info("timeService.isLocalDateTimeLeapYear()的返回值：" + timeService.isLocalDateTimeLeapYear());
         return input.toString();
+    }
+
+    /**
+     * 请求：测试<br>
+     * jsr310 (json)
+     *
+     * @author Deolin
+     */
+    @RequestMapping(value = "localdatetime", method = RequestMethod.GET)
+    @ResponseBody
+    public TimePo localdatetime() {
+        TimePo po = new TimePo();
+        po.setDatetime_field(LocalDateTime.now());
+        LocalTime lt = LocalTime.now();
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.MIN, lt);
+        return po;
     }
 
     /**
