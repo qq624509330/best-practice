@@ -117,6 +117,7 @@ public class BasicsController {
         po.setDatetime_field(LocalDateTime.now());
         LocalTime lt = LocalTime.now();
         LocalDateTime ldt = LocalDateTime.of(LocalDate.MIN, lt);
+        LOG.info(ldt);
         return po;
     }
 
