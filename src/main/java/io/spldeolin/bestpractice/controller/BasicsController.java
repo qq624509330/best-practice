@@ -265,4 +265,17 @@ public class BasicsController {
         return "汉字";
     }
 
+    /**
+     * 请求：测试<br>
+     * (at)ControllerAdvice注解
+     *
+     * @author Deolin
+     */
+    @RequestMapping(value = "controller_advice", method = RequestMethod.GET)
+    @ResponseBody
+    public String controller_advice() throws Exception {
+        Integer.valueOf("a");
+        return null;
+    }
+
 }

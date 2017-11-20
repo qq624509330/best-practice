@@ -19,17 +19,19 @@
             </bean>
             <bean
                 class="org.springframework.http.converter.StringHttpMessageConverter">
-                <!-- <property name="supportedMediaTypes">
+                <property name="supportedMediaTypes">
                     <list>
                         <value>text/plain;charset=utf-8</value>
                         <value>text/html;charset=utf-8</value>
                     </list>
-                </property> -->
+                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
     <context:component-scan base-package="io.spldeolin.bestpractice.controller" />
+
+    <context:component-scan base-package="io.spldeolin.bestpractice.controlleradvice" />
 
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
