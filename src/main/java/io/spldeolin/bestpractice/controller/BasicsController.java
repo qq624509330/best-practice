@@ -247,4 +247,22 @@ public class BasicsController {
         userService.createUser("nickname1", "password1");
     }
 
+    /**
+     * 请求：测试<br>
+     * 中文乱码
+     *
+     * @author Deolin
+     */
+    @RequestMapping(value = "zh_encoding", method = RequestMethod.GET)
+    @ResponseBody
+    public String zh_encoding() throws Exception {
+        /*
+         * 如果注释掉dispatcherservlet-servlet.xml中的supportedMediaTypes，
+         * 返回值到了浏览器会变成乱码。
+         * 但是，无论supportedMediaTypes是否被注释，
+         * 如果将汉字包装在实体类对象里面，都会不乱码。
+         */
+        return "汉字";
+    }
+
 }

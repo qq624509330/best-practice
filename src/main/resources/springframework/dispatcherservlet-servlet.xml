@@ -19,6 +19,12 @@
             </bean>
             <bean
                 class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!-- <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=utf-8</value>
+                        <value>text/html;charset=utf-8</value>
+                    </list>
+                </property> -->
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
