@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -276,6 +277,21 @@ public class BasicsController {
     public String controller_advice() throws Exception {
         Integer.valueOf("a");
         return null;
+    }
+
+    /**
+     * 请求：测试<br>
+     * 取得Http请求中的Cookie
+     *
+     * @author Deolin
+     */
+    @RequestMapping(value = "get_cookie", method = RequestMethod.GET)
+    @ResponseBody
+    public String get_cookie(@CookieValue(value = "token", required = false) String token) throws Exception {
+        if (token == null) {
+            return "cookie取不到，超时或未点击“Set Cookie”。";
+        }
+        return token;
     }
 
 }

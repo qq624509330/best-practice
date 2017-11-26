@@ -17,8 +17,8 @@ public class EnvironmentChecker {
     private static final Logger LOG = LogManager.getLogger(EnvironmentChecker.class);
 
     public void init() {
-        checkMysqlConnection();
-        checkRedisConnection();
+//        checkMysqlConnection();
+//        checkRedisConnection();
     }
 
     private void checkMysqlConnection() {

@@ -22,11 +22,20 @@ function simpleAjax() {
 
 function uploadFile() {
 	$('#file-upload-form').ajaxSubmit({
-        type: "post",
-        url: '/file_upload',
-        dataType: "json",
-        success: function(resp) {
-        	alert("a");
-        }
-    });
+		type : "post",
+		url : '/file_upload',
+		dataType : "json",
+		success : function(resp) {
+			alert("a");
+		}
+	});
+}
+
+function setCookie() {
+	var expiresTime = new Date();
+	expiresTime.setTime(expiresTime.getTime() + 0.5 * 60 * 1000);
+	$.cookie('token', '曲奇饼干', {
+		expires : expiresTime,
+		path : '/'
+	});
 }
