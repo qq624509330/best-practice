@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/lib/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/lib/jquery.form.min.js"></script>
+<script type="text/javascript" src="/lib/jquery.cookie.js"></script>
 <script type="text/javascript" src="/js/behavior.js"></script>
 </head>
 <body>
@@ -34,6 +35,11 @@
 	<a href="/redis_write">Redis (write)</a>
 	<div />
 	<br>
-	
+	<button onclick="setCookie()">Set Cookie</button>
+	<div />
+	<br>
+	<a href="/get_cookie">after setting cookie</a>
+	<div />
+	<br>
 </body>
 </html>
