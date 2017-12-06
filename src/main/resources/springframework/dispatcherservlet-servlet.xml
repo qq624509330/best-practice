@@ -16,11 +16,9 @@
         <mvc:message-converters>
             <bean
                 class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/plain;charset=utf-8</value>
-                        <value>text/html;charset=utf-8</value>
-                    </list>
+                <property name="objectMapper">
+                    <bean
+                        class="io.spldeolin.bestpractice.util.JacksonObjectMapper"/>
                 </property>
             </bean>
         </mvc:message-converters>

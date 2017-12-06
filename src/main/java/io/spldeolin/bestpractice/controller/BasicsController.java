@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
 import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.service.TimeService;
@@ -292,6 +293,22 @@ public class BasicsController {
             return "cookie取不到，超时或未点击“Set Cookie”。";
         }
         return token;
+    }
+
+    /**
+     * 请求：测试<br>
+     * Input类使用非String类型域绑定请求参数时，参数绑定失败的处理方式。
+     *
+     * @author Deolin
+     */
+    @RequestMapping(value = "error_bind", method = RequestMethod.POST)
+    @ResponseBody
+    public String error_bind(@RequestBody AgeBitrhdayInput input) throws Exception {
+        /*
+         * 这个示例测试的是参数绑定失败的情况，所以不再会进入这个方法
+         * 而是进入ControllerExceptionHandler#processHttpMessageNotReadableException(HttpMessageNotReadableException)
+         */
+        return "汉字";
     }
 
 }

@@ -39,3 +39,23 @@ function setCookie() {
 		path : '/'
 	});
 }
+
+function errorBind() {
+	var jsonObj = {
+			'age' : '111',
+			'birthday' : '2017-01-02 00:00:21'
+		};
+	$.ajax({
+		type : "post",
+		url : "/error_bind",
+		dataType : "json",
+		contentType : 'application/json',
+		data : JSON.stringify(jsonObj),
+		success : function(data) {
+			alert(data);
+		},
+		error : function(data) {
+			alert('error');
+		}
+	});
+}
