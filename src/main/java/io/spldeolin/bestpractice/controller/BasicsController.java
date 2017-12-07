@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import io.spldeolin.bestpractice.entity.RequestResult;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
@@ -325,9 +327,17 @@ public class BasicsController {
 
     @RequestMapping(value = "interaction", method = RequestMethod.POST)
     @ResponseBody
-    public String interaction(@RequestBody InteractionInput input) {
+    public RequestResult interaction(@RequestBody @Valid InteractionInput input, BindingResult checker) {
+        // 这里只是为了演示，实际上这段解析BindingResult对象的代码最好抽到共通类中
+        if (checker.hasFieldErrors()) {
+            for (FieldError error : checker.getFieldErrors()) {
+                String errmsg = error.getDefaultMessage();
+                LOG.error(errmsg);
+                return RequestResult.failure().errmsg(errmsg);
+            }
+        }
         LOG.info(input);
-        return "success";
+        return RequestResult.success().data("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
     }
 
 }

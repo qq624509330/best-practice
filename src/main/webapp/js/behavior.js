@@ -74,8 +74,13 @@ function interaction() {
 		dataType : "json",
 		contentType : 'application/json',
 		data : JSON.stringify(jsonObj),
-		success : function(data) {
-			// TODO
+		success : function(resp) {
+			if (resp.result) {
+				alert(resp.data);
+				// 或者解析这个resp.data
+			} else {
+				alert(resp.errmsg);
+			}
 		},
 		error : function(data) {
 			// TODO
