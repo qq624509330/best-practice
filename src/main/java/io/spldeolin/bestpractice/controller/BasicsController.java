@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
+import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
 import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.service.TimeService;
@@ -260,9 +261,7 @@ public class BasicsController {
     public String zh_encoding() throws Exception {
         /*
          * 如果注释掉dispatcherservlet-servlet.xml中的supportedMediaTypes，
-         * 返回值到了浏览器会变成乱码。
-         * 但是，无论supportedMediaTypes是否被注释，
-         * 如果将汉字包装在实体类对象里面，都会不乱码。
+         * 返回值到了浏览器会变成乱码。 但是，无论supportedMediaTypes是否被注释， 如果将汉字包装在实体类对象里面，都会不乱码。
          */
         return "汉字";
     }
@@ -306,9 +305,29 @@ public class BasicsController {
     public String error_bind(@RequestBody AgeBitrhdayInput input) throws Exception {
         /*
          * 这个示例测试的是参数绑定失败的情况，所以不再会进入这个方法
-         * 而是进入ControllerExceptionHandler#processHttpMessageNotReadableException(HttpMessageNotReadableException)
+         * 而是进入ControllerExceptionHandler#processHttpMessageNotReadableException
+         * (HttpMessageNotReadableException)
          */
         return "汉字";
+    }
+
+    /**
+     * 请求：测试<br>
+     *
+     * @ResponseBody 返回汉字String对象时乱码问题的解决方式。
+     * @author Deolin
+     */
+    @RequestMapping(value = "easy_return", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String easyReturn() {
+        return "汉字";
+    }
+
+    @RequestMapping(value = "interaction", method = RequestMethod.POST)
+    @ResponseBody
+    public String interaction(@RequestBody InteractionInput input) {
+        LOG.info(input);
+        return "success";
     }
 
 }
