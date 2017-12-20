@@ -1,8 +1,15 @@
 package io.spldeolin.bestpractice.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class RequestResult {
 
-    private boolean result;
+    private Boolean result;
 
     private Object data;
 
@@ -26,34 +33,18 @@ public class RequestResult {
         return instance;
     }
 
-    public RequestResult data(Object data) {
-        this.data = data;
-        return this;
+    public static RequestResult success(Object data) {
+        RequestResult instance = new RequestResult();
+        instance.setResult(true);
+        instance.setData(data);
+        return instance;
     }
 
-    public RequestResult errmsg(String errmsg) {
-        this.errmsg = errmsg;
-        return this;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
-    }
-
-    public void setResult(boolean result) {
-        this.result = result;
+    public static RequestResult failure(String errmsg) {
+        RequestResult instance = new RequestResult();
+        instance.setResult(false);
+        instance.setErrmsg(errmsg);
+        return instance;
     }
 
 }

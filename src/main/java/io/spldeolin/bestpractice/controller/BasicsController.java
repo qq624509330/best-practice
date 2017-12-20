@@ -333,11 +333,11 @@ public class BasicsController {
             for (FieldError error : checker.getFieldErrors()) {
                 String errmsg = error.getDefaultMessage();
                 LOG.error(errmsg);
-                return RequestResult.failure().errmsg(errmsg);
+                return RequestResult.failure(errmsg);
             }
         }
         LOG.info(input);
-        return RequestResult.success().data("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
+        return RequestResult.success("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
     }
 
 }
