@@ -11,8 +11,6 @@ import java.time.LocalTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,6 +31,7 @@ import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.service.TimeService;
 import io.spldeolin.bestpractice.service.UserService;
 import io.spldeolin.bestpractice.util.HttpSessionUtil;
+import lombok.extern.log4j.Log4j2;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -42,9 +41,8 @@ import redis.clients.jedis.Jedis;
  * @author Deolin
  */
 @Controller
+@Log4j2
 public class BasicsController {
-
-    private static final Logger LOG = LogManager.getLogger(BasicsController.class);
 
     @Autowired
     private UserService userService;
@@ -70,8 +68,8 @@ public class BasicsController {
      */
     @RequestMapping("404")
     public String page404() {
-        LOG.info("进入404页面");
-        LOG.info(HttpSessionUtil.getAttribute("ses"));
+        log.info("进入404页面");
+        log.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http404.html";
     }
 
@@ -82,8 +80,8 @@ public class BasicsController {
      */
     @RequestMapping("500")
     public String page500() {
-        LOG.info("进入500页面");
-        LOG.info(HttpSessionUtil.getAttribute("ses"));
+        log.info("进入500页面");
+        log.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http500.html";
     }
 
@@ -97,15 +95,15 @@ public class BasicsController {
     @ResponseBody
     public String simple_ajax(@RequestBody @Valid NameDateInput input, BindingResult checker) {
         for (ObjectError error : checker.getAllErrors()) {
-            LOG.warn(error.getDefaultMessage());
+            log.warn(error.getDefaultMessage());
         }
         try {
-            LOG.info(userService.getBatch().get(1));
+            log.info(userService.getBatch().get(1));
             userService.batchCreate();
         } catch (Exception e) {
-            LOG.warn("异常抛出前插入的数据被回滚了，没有数据被插入");
+            log.warn("异常抛出前插入的数据被回滚了，没有数据被插入");
         }
-        LOG.info("timeService.isLocalDateTimeLeapYear()的返回值：" + timeService.isLocalDateTimeLeapYear());
+        log.info("timeService.isLocalDateTimeLeapYear()的返回值：" + timeService.isLocalDateTimeLeapYear());
         return input.toString();
     }
 
@@ -122,7 +120,7 @@ public class BasicsController {
         po.setDatetime_field(LocalDateTime.now());
         LocalTime lt = LocalTime.now();
         LocalDateTime ldt = LocalDateTime.of(LocalDate.MIN, lt);
-        LOG.info(ldt);
+        log.info(ldt);
         return po;
     }
 
@@ -135,7 +133,7 @@ public class BasicsController {
     @RequestMapping(value = "file_upload", method = RequestMethod.POST)
     @ResponseBody
     public void file_upload(@RequestParam MultipartFile file) throws IllegalStateException, IOException {
-        LOG.info("上传");
+        log.info("上传");
         file.transferTo(new File("C:\\" + file.getOriginalFilename()));
     }
 
@@ -173,14 +171,14 @@ public class BasicsController {
                 i = bis.read(buffer);
             }
         } catch (Exception e) {
-            LOG.error("I/O异常");
+            log.error("I/O异常");
             return "redirect:/500";
         } finally {
             if (bis != null) {
                 try {
                     bis.close();
                 } catch (IOException e) {
-                    LOG.error("I/O异常");
+                    log.error("I/O异常");
                     return "redirect:/500";
                 }
             }
@@ -188,7 +186,7 @@ public class BasicsController {
                 try {
                     fis.close();
                 } catch (IOException e) {
-                    LOG.error("I/O异常");
+                    log.error("I/O异常");
                     return "redirect:/500";
                 }
             }
@@ -216,7 +214,7 @@ public class BasicsController {
      */
     public void getCache() {
         Jedis jedis = new Jedis("localhost", 6379);
-        LOG.info("Deolin    " + jedis.get("ma"));
+        log.info("Deolin    " + jedis.get("ma"));
         jedis.close();
     }
 
@@ -236,8 +234,8 @@ public class BasicsController {
          * “10秒”指的是key失效时间，通过cacheManager.setDefaultExpiration(10);设置，
          * key失效后，再次请求会重新通过访问DB来取得数据
          */
-        LOG.info(userService.getUserByNickname("nickname1"));
-        LOG.info(userService.getUserByPassword("password1"));
+        log.info(userService.getUserByNickname("nickname1"));
+        log.info(userService.getUserByPassword("password1"));
     }
 
     /**
@@ -332,11 +330,11 @@ public class BasicsController {
         if (checker.hasFieldErrors()) {
             for (FieldError error : checker.getFieldErrors()) {
                 String errmsg = error.getDefaultMessage();
-                LOG.error(errmsg);
+                log.error(errmsg);
                 return RequestResult.failure(errmsg);
             }
         }
-        LOG.info(input);
+        log.info(input);
         return RequestResult.success("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
     }
 
