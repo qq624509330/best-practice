@@ -26,8 +26,11 @@
         <!--Mybatis配置文件-->
         <property name="configLocation"
                 value="classpath:mybatis/mybatis-config.xml" />
-        <!--*Mapper.xml所在位置-->
+        <!--mapper.xml所在位置-->
         <property name="mapperLocations" value="classpath:mapper/*Mapper.xml" />
+        <!--model所在位置-->
+        <property name="typeAliasesPackage"
+                value="io.spldeolin.bestpractice.po" />
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

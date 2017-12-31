@@ -358,7 +358,7 @@ public class BasicsController {
         UserPo po = new UserPo();
         po.setInsertTime(new Date());
         userMapper.insert1(po);
-        return RequestResult.success();
+        return RequestResult.success("新数据的ID是：" + po.getId());
     }
 
 }

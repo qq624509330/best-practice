@@ -2,7 +2,6 @@ package io.spldeolin.bestpractice.po;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +17,6 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-@Table(name = "user")
 public class UserPo implements Serializable {
 
     private static final long serialVersionUID = 7665253963703798685L;
