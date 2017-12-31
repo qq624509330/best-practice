@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -17,17 +18,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import io.spldeolin.bestpractice.entity.RequestResult;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
+import io.spldeolin.bestpractice.mapper.UserMapper;
 import io.spldeolin.bestpractice.po.TimePo;
+import io.spldeolin.bestpractice.po.UserPo;
 import io.spldeolin.bestpractice.service.TimeService;
 import io.spldeolin.bestpractice.service.UserService;
 import io.spldeolin.bestpractice.util.HttpSessionUtil;
@@ -49,6 +54,9 @@ public class BasicsController {
 
     @Autowired
     private TimeService timeService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 请求：转发到首页
@@ -336,6 +344,21 @@ public class BasicsController {
         }
         log.info(input);
         return RequestResult.success("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
+    }
+
+    @GetMapping("mybatis")
+    @ResponseBody
+    public RequestResult mybatis() {
+        return RequestResult.success(userMapper.get(5));
+    }
+
+    @GetMapping("insert")
+    @ResponseBody
+    public RequestResult insert() {
+        UserPo po = new UserPo();
+        po.setInsertTime(new Date());
+        userMapper.insert1(po);
+        return RequestResult.success();
     }
 
 }

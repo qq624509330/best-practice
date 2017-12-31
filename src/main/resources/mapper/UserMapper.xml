@@ -35,4 +35,12 @@
         VALUE (#{map.insert_time}, #{map.password}, #{map.nickname})
     </insert>
 
+    <select id="get" parameterType="Integer" resultType="io.spldeolin.bestpractice.po.UserPo">
+        SELECT * from user where id = #{id}
+    </select>
+
+    <insert id="insert1" parameterType="io.spldeolin.bestpractice.po.UserPo">
+        insert into user (insert_time) values (#{insertTime})
+    </insert>
+
 </mapper>
