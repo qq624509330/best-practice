@@ -349,7 +349,7 @@ public class BasicsController {
     @GetMapping("mybatis")
     @ResponseBody
     public RequestResult mybatis() {
-        return RequestResult.success(userMapper.get(5));
+        return RequestResult.success(userMapper.selectAll());
     }
 
     @GetMapping("insert")

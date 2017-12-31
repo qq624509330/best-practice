@@ -33,11 +33,21 @@
                 value="io.spldeolin.bestpractice.po" />
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--&lt;!&ndash;mapper接口所在位置&ndash;&gt;-->
+        <!--<property name="basePackage" value="io.spldeolin.bestpractice.mapper" />-->
+        <!--<property name="sqlSessionFactoryBeanName"-->
+                <!--value="sqlSessionFactory" />-->
+    <!--</bean>-->
+
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--mapper接口所在位置-->
         <property name="basePackage" value="io.spldeolin.bestpractice.mapper" />
-        <property name="sqlSessionFactoryBeanName"
-                value="sqlSessionFactory" />
+        <property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper
+            </value>
+        </property>
     </bean>
 
 </beans>

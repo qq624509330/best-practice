@@ -23,15 +23,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void batchCreate() throws Exception {
-        userMapper.insert(new Date(100000));
+        userMapper.insertCustom(new Date(100000));
         Integer.valueOf("a");
-        userMapper.insert(new Date());
+        userMapper.insertCustom(new Date());
     }
 
     @Override
     public List<UserPo> getBatch() throws Exception {
         PageHelper.startPage(3, 2);
-        List<UserPo> userPos = userMapper.list();
+        List<UserPo> userPos = userMapper.listCustom();
         PageInfo<UserPo> userPage = new PageInfo<>(userPos);
         // 获得应该在当前页显示的数据的List
         List<UserPo> posInPage = userPage.getList();

@@ -6,23 +6,24 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import io.spldeolin.bestpractice.po.UserPo;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 表映射：用户
  *
  * @author Deolin
  */
-public interface UserMapper {
+public interface UserMapper extends Mapper<UserPo> {
 
     /**
      * Statement映射：列举全部“用户”
      */
-    List<UserPo> list();
+    List<UserPo> listCustom();
 
     /**
      * Statement映射：指定insert_time字段，插入一个“用户”
      */
-    void insert(Date insert_time);
+    void insertCustom(Date insert_time);
 
     /**
      * Statement映射：通过nickname字段，检索“用户”
@@ -42,7 +43,7 @@ public interface UserMapper {
     /**
      * 查询一个用户
      */
-    UserPo get(Integer id);
+    UserPo getCustom(Integer id);
 
     void insert1(UserPo po);
 

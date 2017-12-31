@@ -87,6 +87,18 @@
             <artifactId>mybatis-typehandlers-jsr310</artifactId>
             <version>1.0.1</version>
         </dependency>
+        <!--mapper增强-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+        <!--java持久层规范-->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>

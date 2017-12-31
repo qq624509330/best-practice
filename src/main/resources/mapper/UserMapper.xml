@@ -8,7 +8,7 @@
         WHERE remove_time IS NULL
     </select>
 
-    <insert id="insert" parameterType="Date">
+    <insert id="insertCustom" parameterType="Date">
         INSERT INTO user
         (insert_time)
         VALUE (#{insert_time})
@@ -35,7 +35,7 @@
         VALUE (#{map.insert_time}, #{map.password}, #{map.nickname})
     </insert>
 
-    <select id="get" parameterType="Integer" resultType="io.spldeolin.bestpractice.po.UserPo">
+    <select id="getCustom" parameterType="Integer" resultType="io.spldeolin.bestpractice.po.UserPo">
         SELECT * from user where id = #{id}
     </select>
 
