@@ -34,20 +34,18 @@
     </bean>
 
     <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--&lt;!&ndash;mapper接口所在位置&ndash;&gt;-->
-        <!--<property name="basePackage" value="io.spldeolin.bestpractice.mapper" />-->
-        <!--<property name="sqlSessionFactoryBeanName"-->
-                <!--value="sqlSessionFactory" />-->
+    <!--&lt;!&ndash;mapper接口所在位置&ndash;&gt;-->
+    <!--<property name="basePackage" value="io.spldeolin.bestpractice.mapper" />-->
+    <!--<property name="sqlSessionFactoryBeanName"-->
+    <!--value="sqlSessionFactory" />-->
     <!--</bean>-->
 
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--mapper接口所在位置-->
         <property name="basePackage" value="io.spldeolin.bestpractice.mapper" />
-        <property name="properties">
-            <value>
-                mappers=tk.mybatis.mapper.common.Mapper
-            </value>
-        </property>
+        <!--这里有个关注点：自定义Mapper不能放在mapper包里面-->
+        <property name="properties"
+                value="mappers=io.spldeolin.bestpractice.component.Mapper" />
     </bean>
 
 </beans>
