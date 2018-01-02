@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
+import io.spldeolin.bestpractice.component.Mapper;
 import io.spldeolin.bestpractice.po.UserPo;
-import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 表映射：用户
