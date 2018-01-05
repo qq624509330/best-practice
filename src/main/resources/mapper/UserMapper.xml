@@ -1,46 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.spldeolin.bestpractice.dao.UserMapper">
-
-    <select id="list" resultType="io.spldeolin.bestpractice.po.UserPo">
-        SELECT *
-        FROM user
-        WHERE remove_time IS NULL
-    </select>
-
-    <insert id="insertCustom" parameterType="Date">
-        INSERT INTO user
-        (insert_time)
-        VALUE (#{insert_time})
-    </insert>
-
-    <select id="getUserByNickname" parameterType="String" resultType="io.spldeolin.bestpractice.po.UserPo">
-        SELECT *
-        FROM user
-        WHERE remove_time IS NULL
-        AND nickname = #{nickname}
-    </select>
-
-
-    <select id="getUserByPassword" parameterType="String" resultType="io.spldeolin.bestpractice.po.UserPo">
-        SELECT *
-        FROM user
-        WHERE remove_time IS NULL
-        AND password = #{password}
-    </select>
-
-    <insert id="insertUser" parameterType="Map">
-        INSERT INTO user
-        (insert_time, password, nickname)
-        VALUE (#{map.insert_time}, #{map.password}, #{map.nickname})
-    </insert>
-
-    <select id="getCustom" parameterType="Integer" resultType="io.spldeolin.bestpractice.po.UserPo">
-        SELECT * from user where id = #{id}
-    </select>
-
-    <insert id="insert1" parameterType="UserPo">
-        insert into user (insert_time) values (#{insertTime})
-    </insert>
-
+  <resultMap id="BaseResultMap" type="io.spldeolin.bestpractice.po.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="inserted_at" jdbcType="TIMESTAMP" property="insertedAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="token" jdbcType="CHAR" property="token" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="login_enable" jdbcType="BIT" property="loginEnable" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="wake_up_time" jdbcType="TIME" property="wakeUpTime" />
+    <result column="win_at" jdbcType="TIMESTAMP" property="winAt" />
+    <result column="daily_spending" jdbcType="DECIMAL" property="dailySpending" />
+    <result column="job_no" jdbcType="BIGINT" property="jobNo" />
+    <result column="one_shoot_rate" jdbcType="REAL" property="oneShootRate" />
+    <result column="dead_rate" jdbcType="DOUBLE" property="deadRate" />
+    <result column="introduce" jdbcType="LONGVARCHAR" property="introduce" />
+    <result column="head" jdbcType="LONGVARBINARY" property="head" />
+  </resultMap>
 </mapper>

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,12 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.spldeolin.bestpractice.dao.UserMapper;
 import io.spldeolin.bestpractice.entity.RequestResult;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
-import io.spldeolin.bestpractice.po.UserPo;
+import io.spldeolin.bestpractice.po.User;
 import io.spldeolin.bestpractice.service.UserService;
 import io.spldeolin.bestpractice.util.HttpSessionUtil;
 import lombok.extern.log4j.Log4j2;
@@ -46,9 +45,6 @@ public class BasicsController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserMapper userMapper;
 
     /**
      * 请求：转发到首页
@@ -91,16 +87,18 @@ public class BasicsController {
     @PostMapping("simple_ajax")
     @ResponseBody
     public String simpleAjax(@RequestBody @Valid NameDateInput input, BindingResult checker) {
+        log.info("请求参数：" + input);
         for (ObjectError error : checker.getAllErrors()) {
             log.warn(error.getDefaultMessage());
         }
+        List<User> users = null;
         try {
-            log.info(userService.getBatch().get(1));
+            users = userService.getBatch();
             userService.batchCreate();
         } catch (Exception e) {
             log.warn("异常抛出前插入的数据被回滚了，没有数据被插入");
         }
-        return input.toString();
+        return users.toString();
     }
 
     /**
@@ -203,38 +201,6 @@ public class BasicsController {
 
     /**
      * 请求：测试<br>
-     * 读redis缓存 （代替读DB）
-     *
-     * @author Deolin
-     */
-    @GetMapping("redis_read")
-    @ResponseBody
-    public void redisRead() throws Exception {
-        /*
-         * 这里，验证缓存需要把log4j2调整为DEBUG模式。 第一次请求这个方法时，日志会输出“JDBC Connection
-         * [...”之类的内容，说明在访问DB 之后的10秒内，每次请求时，日志只会输出“Opening
-         * RedisConnection”之类的内容，说明命中了对缓存。
-         * “10秒”指的是key失效时间，通过cacheManager.setDefaultExpiration(10);设置，
-         * key失效后，再次请求会重新通过访问DB来取得数据
-         */
-        log.info(userService.getUserByNickname("nickname1"));
-        log.info(userService.getUserByPassword("password1"));
-    }
-
-    /**
-     * 请求：测试<br>
-     * 写redis缓存
-     *
-     * @author Deolin
-     */
-    @GetMapping("redis_write")
-    @ResponseBody
-    public void redisWrite() throws Exception {
-        userService.createUser("nickname1", "password1");
-    }
-
-    /**
-     * 请求：测试<br>
      * 中文乱码
      *
      * @author Deolin
@@ -319,21 +285,6 @@ public class BasicsController {
         }
         log.info(input);
         return RequestResult.success("交互成功。（实际开发中data参数可以放各种想要传给前端的对象）");
-    }
-
-    @GetMapping("mybatis")
-    @ResponseBody
-    public RequestResult mybatis() {
-        return RequestResult.success(userMapper.selectAll());
-    }
-
-    @GetMapping("insert")
-    @ResponseBody
-    public RequestResult insert() {
-        UserPo po = new UserPo();
-        po.setInsertTime(new Date());
-        userMapper.insert1(po);
-        return RequestResult.success("新数据的ID是：" + po.getId());
     }
 
 }

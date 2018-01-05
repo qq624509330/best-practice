@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.spldeolin</groupId>
     <artifactId>best-practice</artifactId>
@@ -10,13 +11,14 @@
     <url>https://github.com/spldeolin/best-practice.git</url>
     <properties>
         <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-        <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
-        <!--  MyBatis Generator mapper接口的生成位置  -->
-        <targetMapperPackage>tk.mybatis.mapper.mapper</targetMapperPackage>
-        <!--  MyBatis Generator model类的生成位置  -->
-        <targetModelPackage>tk.mybatis.mapper.po</targetModelPackage>
-        <!--  MyBatis Generator mapperxml文件的生成位置  -->
-        <targetXMLPackage>mapperex</targetXMLPackage>
+        <targetResourcesProject>${basedir}/src/main/resources
+        </targetResourcesProject>
+        <!-- MyBatis Generator mapper接口的生成位置 -->
+        <targetMapperPackage>io.spldeolin.bestpractice.dao</targetMapperPackage>
+        <!-- MyBatis Generator model类的生成位置 -->
+        <targetModelPackage>io.spldeolin.bestpractice.po</targetModelPackage>
+        <!-- MyBatis Generator mapper.xml生成位置 -->
+        <targetXMLPackage>mapper</targetXMLPackage>
     </properties>
     <build>
         <plugins>
@@ -51,7 +53,9 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.6</version>
                 <configuration>
-                    <configurationFile>${basedir}/src/main/resources/mybatis/generator-config.xml</configurationFile>
+                    <configurationFile>
+                        ${basedir}/src/main/resources/mybatis/generator-config.xml
+                    </configurationFile>
                     <overwrite>false</overwrite>
                     <verbose>true</verbose>
                 </configuration>

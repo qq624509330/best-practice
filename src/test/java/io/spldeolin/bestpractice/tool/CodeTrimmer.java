@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 代码修剪器，对通过代码生成器生成的Model、Mapper、Service、Controller代码，进行简化
- *
+ * <p>
  * 【0】最好，只用这个工具来处理那些由CodeGenerator刚生成的model，做过一定修改的model会出现一些问题。
  */
 public class CodeTrimmer {
@@ -22,13 +22,13 @@ public class CodeTrimmer {
      * 【1】model类所在包的绝对路径
      */
     private static final String MODEL_PACKAGE_ABSOLUTE_PATH =
-            "";
+            "C:\\java-development\\idea-products\\best-practice\\src\\main\\java\\io\\spldeolin\\bestpractice\\po";
 
     public static void main(String[] args) {
         /**
          * 【2】需要被处理的model类名，不填则处理所有
          */
-        trimModels("", "", "");
+        trimModels();
     }
 
     private static void trimModels(String... targetFilenames) {
@@ -79,18 +79,19 @@ public class CodeTrimmer {
         outputLines.add("}");
         for (String inputLine : inputLines) {
             // public class
-            if (StringUtils.trimLeadingWhitespace(inputLine).startsWith("public class")) {
+            if (StringUtils.trimToEmpty(inputLine).startsWith("public class")) {
                 outputLines.add("");
                 outputLines.add("    private static final long serialVersionUID = 1L;");
                 outputLines.add(addImplements(inputLine));
+                addTableAnnouncement(inputLine, outputLines);
+                addClassAnnotation(outputLines);
+                addImport(outputLines);
                 meetPublicClassEver = true;
                 continue;
             }
             // @Table
-            if (StringUtils.trimLeadingWhitespace(inputLine).startsWith("@Table")) {
-                outputLines.add(inputLine);
-                addClassAnnotation(outputLines);
-                addImport(outputLines);
+            if (StringUtils.trimToEmpty(inputLine).startsWith("@Table")) {
+                // 遇到@Table则不要
                 continue;
             }
             // Getter, Setter 方法签名与方法体
@@ -99,7 +100,7 @@ public class CodeTrimmer {
             }
             // 如果ignoreJavaDoc未被改变过（遇到类声明之前），且第一次遇到private，则都不再处理JavaDoc
             if (!meetPublicClassEver) {
-                String lineContent = StringUtils.trimLeadingWhitespace(inputLine);
+                String lineContent = StringUtils.trimToEmpty(inputLine);
                 if (!lineContent.startsWith("private") && !lineContent.startsWith("*/") &&
                         !lineContent.startsWith("*") && !lineContent.startsWith("/**") &&
                         !lineContent.equals("")) {
@@ -127,7 +128,7 @@ public class CodeTrimmer {
     }
 
     private static boolean isMethodSignOrBody(String line) {
-        line = StringUtils.trimLeadingWhitespace(line);
+        line = StringUtils.trimToEmpty(line);
         // 如果以public而不是public class开头
         if (StringUtils.startsWithIgnoreCase(line, "public")) {
             if (!StringUtils.startsWithIgnoreCase(line, "public class")) {
@@ -150,7 +151,7 @@ public class CodeTrimmer {
     }
 
     private static boolean isJavaDoc(String line) {
-        line = StringUtils.trimLeadingWhitespace(line);
+        line = StringUtils.trimToEmpty(line);
         // 如果是JavaDOC
         if (StringUtils.startsWithIgnoreCase(line, "/**") || StringUtils.startsWithIgnoreCase(line, "*") ||
                 StringUtils.startsWithIgnoreCase(line, "*/")) {
@@ -177,9 +178,15 @@ public class CodeTrimmer {
     }
 
     private static String addImplements(String line) {
-        line = StringUtils.trimTrailingCharacter(line, '{');
+        line = StringUtils.stripEnd(line, "{");
         line += "implements Serializable {";
         return line;
+    }
+
+    private static void addTableAnnouncement(String line, List<String> lines) {
+        String className = StringUtils.trimToEmpty(line).replace("public class ", "").replace(" {", "");
+        String tableAnnouncement = "@Table(name = \"" + camelToUnderline(className) + "\")";
+        lines.add(tableAnnouncement);
     }
 
     private static String fileName(File file) {
@@ -191,4 +198,22 @@ public class CodeTrimmer {
         String fileFullName = file.getName();
         return fileFullName.substring(fileFullName.lastIndexOf(".") + 1);
     }
+
+    private static String camelToUnderline(String camelCaseName) {
+        StringBuilder result = new StringBuilder();
+        if (camelCaseName != null && camelCaseName.length() > 0) {
+            result.append(camelCaseName.substring(0, 1).toLowerCase());
+            for (int i = 1; i < camelCaseName.length(); i++) {
+                char ch = camelCaseName.charAt(i);
+                if (Character.isUpperCase(ch)) {
+                    result.append("_");
+                    result.append(Character.toLowerCase(ch));
+                } else {
+                    result.append(ch);
+                }
+            }
+        }
+        return result.toString();
+    }
+
 }
