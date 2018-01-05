@@ -79,7 +79,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * ajax、数据绑定、jsr303、日志、mybatis、事务、返回值转换为json
      *
      * @author Deolin
@@ -102,7 +102,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 异步上传文件、HttpSessionUtil工具类
      *
      * @author Deolin
@@ -116,7 +116,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 下载文件、HttpSessionUtil工具类
      *
      * @author Deolin
@@ -174,7 +174,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 通过Jedis向Redis存入一条数据
      *
      * @author Deolin
@@ -187,7 +187,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 通过Jedis从Redis取出一条数据
      *
      * @author Deolin
@@ -200,7 +200,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 中文乱码
      *
      * @author Deolin
@@ -216,7 +216,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * (at)ControllerAdvice注解
      *
      * @author Deolin
@@ -229,7 +229,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * 取得Http请求中的Cookie
      *
      * @author Deolin
@@ -244,7 +244,7 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
      * Input类使用非String类型域绑定请求参数时，参数绑定失败的处理方式。
      *
      * @author Deolin
@@ -261,9 +261,9 @@ public class BasicsController {
     }
 
     /**
-     * 请求：测试<br>
+     * 演示接口<br>
+     * 返回汉字String对象时乱码问题的解决方式。
      *
-     * @ResponseBody 返回汉字String对象时乱码问题的解决方式。
      * @author Deolin
      */
     @GetMapping(value = "easy_return", produces = "application/json;charset=UTF-8")

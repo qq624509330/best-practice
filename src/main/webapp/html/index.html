@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="/lib/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/lib/jquery.form.min.js"></script>
-<script type="text/javascript" src="/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="/js/behavior.js"></script>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript" src="/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery.form.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/behavior.js"></script>
 </head>
 <body>
-	我是首页呀
-	<div />
-	<br>
-	<button onclick="simpleAjax()">Simple Ajax</button>
-	<div />
-	<br>
-	<form id="file-upload-form" class="hide" method="post"
-		enctype="multipart/form-data">
-		<input name="file" type="file" /> <input name="id" type="hidden"
-			value="1" />
-		<button onclick="uploadFile()">Upload File</button>
-	</form>
-	<div />
-	<br>
-	<a href="/download?mode=1">Download File (absolute path)</a>
-	<div />
-	<br>
-	<a href="/download?mode=2">Download File (relative path)</a>
-	<div />
-	<br>
-	<a href="/redis_read">Redis (read)</a>
-	<div />
-	<br>
-	<a href="/redis_write">Redis (write)</a>
-	<div />
-	<br>
-	<button onclick="setCookie()">Set Cookie</button>
-	<div />
-	<br>
-	<a href="/get_cookie">after setting cookie</a>
-	<div />
-	<br>
-	<button onclick="errorBind()">Error bind</button>
-	<div />
-	<br>
-	<button onclick="interaction()">前后端交互的最佳实践</button>
-	<div />
-	<br>
+我是首页呀
+<div/>
+<br>
+<button onclick="simpleAjax()">Simple Ajax</button>
+<div/>
+<br>
+<form id="file-upload-form" class="hide" method="post"
+      enctype="multipart/form-data">
+    <input name="file" type="file"/> <input name="id" type="hidden"
+                                            value="1"/>
+    <button onclick="uploadFile()">Upload File</button>
+</form>
+<div/>
+<br>
+<a href="/download?mode=1">Download File (absolute path)</a>
+<div/>
+<br>
+<a href="/download?mode=2">Download File (relative path)</a>
+<div/>
+<br>
+<button onclick="setCookie()">Set Cookie</button>
+<div/>
+<br>
+<a href="/get_cookie">after setting cookie</a>
+<div/>
+<br>
+<button onclick="errorBind()">Error bind</button>
+<div/>
+<br>
+<button onclick="interaction()">前后端交互的最佳实践</button>
+<div/>
+<br>
 </body>
 </html>
