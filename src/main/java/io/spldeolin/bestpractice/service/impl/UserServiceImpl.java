@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.spldeolin.bestpractice.mapper.UserMapper;
+import io.spldeolin.bestpractice.dao.UserMapper;
 import io.spldeolin.bestpractice.po.UserPo;
 import io.spldeolin.bestpractice.service.UserService;
 

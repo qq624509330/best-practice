@@ -3,7 +3,7 @@ package io.spldeolin.bestpractice.service.impl;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import io.spldeolin.bestpractice.mapper.TimeMapper;
+import io.spldeolin.bestpractice.dao.TimeMapper;
 import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.service.TimeService;
 import lombok.extern.log4j.Log4j2;

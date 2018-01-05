@@ -1,4 +1,4 @@
-package io.spldeolin.bestpractice.mapper;
+package io.spldeolin.bestpractice.dao;
 
 import java.util.Date;
 import java.util.List;

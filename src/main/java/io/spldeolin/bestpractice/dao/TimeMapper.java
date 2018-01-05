@@ -1,4 +1,4 @@
-package io.spldeolin.bestpractice.mapper;
+package io.spldeolin.bestpractice.dao;
 
 import io.spldeolin.bestpractice.po.TimePo;
 

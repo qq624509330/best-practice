@@ -30,7 +30,7 @@ import io.spldeolin.bestpractice.entity.RequestResult;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
-import io.spldeolin.bestpractice.mapper.UserMapper;
+import io.spldeolin.bestpractice.dao.UserMapper;
 import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.po.UserPo;
 import io.spldeolin.bestpractice.service.TimeService;
@@ -65,6 +65,7 @@ public class BasicsController {
      */
     @RequestMapping(value = "index")
     public String index() {
+        Date d = new Date(123123L);
         HttpSessionUtil.setAttribute("ses", "接收到了index()中存放的Session值");
         return "/html/index.html";
     }

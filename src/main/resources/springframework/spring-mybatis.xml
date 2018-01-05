@@ -42,7 +42,7 @@
 
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--mapper接口所在位置-->
-        <property name="basePackage" value="io.spldeolin.bestpractice.mapper" />
+        <property name="basePackage" value="io.spldeolin.bestpractice.dao" />
         <!--这里有个关注点：自定义Mapper不能放在mapper包里面-->
         <property name="properties"
                 value="mappers=io.spldeolin.bestpractice.component.Mapper" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.spldeolin.bestpractice.mapper.TimeMapper">
+<mapper namespace="io.spldeolin.bestpractice.dao.TimeMapper">
 
     <select id="get" parameterType="Integer"
         resultType="io.spldeolin.bestpractice.po.TimePo">
