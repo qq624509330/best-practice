@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,14 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.spldeolin.bestpractice.dao.UserMapper;
 import io.spldeolin.bestpractice.entity.RequestResult;
 import io.spldeolin.bestpractice.input.AgeBitrhdayInput;
 import io.spldeolin.bestpractice.input.InteractionInput;
 import io.spldeolin.bestpractice.input.NameDateInput;
-import io.spldeolin.bestpractice.dao.UserMapper;
-import io.spldeolin.bestpractice.po.TimePo;
 import io.spldeolin.bestpractice.po.UserPo;
-import io.spldeolin.bestpractice.service.TimeService;
 import io.spldeolin.bestpractice.service.UserService;
 import io.spldeolin.bestpractice.util.HttpSessionUtil;
 import lombok.extern.log4j.Log4j2;
@@ -53,9 +48,6 @@ public class BasicsController {
     private UserService userService;
 
     @Autowired
-    private TimeService timeService;
-
-    @Autowired
     private UserMapper userMapper;
 
     /**
@@ -65,8 +57,6 @@ public class BasicsController {
      */
     @RequestMapping(value = "index")
     public String index() {
-        Date d = new Date(123123L);
-        HttpSessionUtil.setAttribute("ses", "接收到了index()中存放的Session值");
         return "/html/index.html";
     }
 
@@ -78,7 +68,6 @@ public class BasicsController {
     @RequestMapping("404")
     public String page404() {
         log.info("进入404页面");
-        log.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http404.html";
     }
 
@@ -90,13 +79,12 @@ public class BasicsController {
     @RequestMapping("500")
     public String page500() {
         log.info("进入500页面");
-        log.info(HttpSessionUtil.getAttribute("ses"));
         return "/html/http500.html";
     }
 
     /**
      * 请求：测试<br>
-     * ajax、数据绑定、jsr303、jsr310（mybatis）、日志、mybatis、事务、返回值转换为json
+     * ajax、数据绑定、jsr303、日志、mybatis、事务、返回值转换为json
      *
      * @author Deolin
      */
@@ -112,30 +100,12 @@ public class BasicsController {
         } catch (Exception e) {
             log.warn("异常抛出前插入的数据被回滚了，没有数据被插入");
         }
-        log.info("timeService.isLocalDateTimeLeapYear()的返回值：" + timeService.isLocalDateTimeLeapYear());
         return input.toString();
     }
 
     /**
      * 请求：测试<br>
-     * jsr310 (json)
-     *
-     * @author Deolin
-     */
-    @RequestMapping(value = "localdatetime", method = RequestMethod.GET)
-    @ResponseBody
-    public TimePo localdatetime() {
-        TimePo po = new TimePo();
-        po.setDatetime_field(LocalDateTime.now());
-        LocalTime lt = LocalTime.now();
-        LocalDateTime ldt = LocalDateTime.of(LocalDate.MIN, lt);
-        log.info(ldt);
-        return po;
-    }
-
-    /**
-     * 请求：测试<br>
-     * 异步上传文件
+     * 异步上传文件、HttpSessionUtil工具类
      *
      * @author Deolin
      */
@@ -143,17 +113,19 @@ public class BasicsController {
     @ResponseBody
     public void file_upload(@RequestParam MultipartFile file) throws IllegalStateException, IOException {
         log.info("上传");
+        HttpSessionUtil.setAttribute("ses", "绘画");
         file.transferTo(new File("C:\\" + file.getOriginalFilename()));
     }
 
     /**
      * 请求：测试<br>
-     * 下载文件
+     * 下载文件、HttpSessionUtil工具类
      *
      * @author Deolin
      */
     @RequestMapping(value = "download", method = RequestMethod.GET)
     public String download(Integer mode, HttpServletRequest request, HttpServletResponse response) {
+        log.info(HttpSessionUtil.getAttribute("ses"));
         String fileName;
         File file;
         if (mode == 1) {
