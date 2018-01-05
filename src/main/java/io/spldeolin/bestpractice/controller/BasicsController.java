@@ -16,9 +16,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,9 +88,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "simple_ajax", method = RequestMethod.POST)
+    @PostMapping("simple_ajax")
     @ResponseBody
-    public String simple_ajax(@RequestBody @Valid NameDateInput input, BindingResult checker) {
+    public String simpleAjax(@RequestBody @Valid NameDateInput input, BindingResult checker) {
         for (ObjectError error : checker.getAllErrors()) {
             log.warn(error.getDefaultMessage());
         }
@@ -109,9 +109,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "file_upload", method = RequestMethod.POST)
+    @PostMapping("file_upload")
     @ResponseBody
-    public void file_upload(@RequestParam MultipartFile file) throws IllegalStateException, IOException {
+    public void fileUpload(@RequestParam MultipartFile file) throws IllegalStateException, IOException {
         log.info("上传");
         HttpSessionUtil.setAttribute("ses", "绘画");
         file.transferTo(new File("C:\\" + file.getOriginalFilename()));
@@ -123,8 +123,8 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "download", method = RequestMethod.GET)
-    public String download(Integer mode, HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("file_download")
+    public String fileDownload(Integer mode, HttpServletRequest request, HttpServletResponse response) {
         log.info(HttpSessionUtil.getAttribute("ses"));
         String fileName;
         File file;
@@ -181,6 +181,7 @@ public class BasicsController {
      *
      * @author Deolin
      */
+    @GetMapping("set_cache")
     public void setCache() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.set("ma", "aaaa");
@@ -193,6 +194,7 @@ public class BasicsController {
      *
      * @author Deolin
      */
+    @GetMapping("get_cache")
     public void getCache() {
         Jedis jedis = new Jedis("localhost", 6379);
         log.info("Deolin    " + jedis.get("ma"));
@@ -205,9 +207,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "redis_read", method = RequestMethod.GET)
+    @GetMapping("redis_read")
     @ResponseBody
-    public void redis_read() throws Exception {
+    public void redisRead() throws Exception {
         /*
          * 这里，验证缓存需要把log4j2调整为DEBUG模式。 第一次请求这个方法时，日志会输出“JDBC Connection
          * [...”之类的内容，说明在访问DB 之后的10秒内，每次请求时，日志只会输出“Opening
@@ -225,9 +227,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "redis_write", method = RequestMethod.GET)
+    @GetMapping("redis_write")
     @ResponseBody
-    public void redis_write() throws Exception {
+    public void redisWrite() throws Exception {
         userService.createUser("nickname1", "password1");
     }
 
@@ -237,9 +239,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "zh_encoding", method = RequestMethod.GET)
+    @GetMapping("zh_encoding")
     @ResponseBody
-    public String zh_encoding() throws Exception {
+    public String zhEncoding() throws Exception {
         /*
          * 如果注释掉dispatcherservlet-servlet.xml中的supportedMediaTypes，
          * 返回值到了浏览器会变成乱码。 但是，无论supportedMediaTypes是否被注释， 如果将汉字包装在实体类对象里面，都会不乱码。
@@ -253,9 +255,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "controller_advice", method = RequestMethod.GET)
+    @GetMapping("controller_advice")
     @ResponseBody
-    public String controller_advice() throws Exception {
+    public String controllerAdvice() throws Exception {
         Integer.valueOf("a");
         return null;
     }
@@ -266,9 +268,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "get_cookie", method = RequestMethod.GET)
+    @GetMapping("get_cookie")
     @ResponseBody
-    public String get_cookie(@CookieValue(value = "token", required = false) String token) throws Exception {
+    public String getCookie(@CookieValue(value = "token", required = false) String token) throws Exception {
         if (token == null) {
             return "cookie取不到，超时或未点击“Set Cookie”。";
         }
@@ -281,9 +283,9 @@ public class BasicsController {
      *
      * @author Deolin
      */
-    @RequestMapping(value = "error_bind", method = RequestMethod.POST)
+    @PostMapping("error_bind")
     @ResponseBody
-    public String error_bind(@RequestBody AgeBitrhdayInput input) throws Exception {
+    public String errorBind(@RequestBody AgeBitrhdayInput input) throws Exception {
         /*
          * 这个示例测试的是参数绑定失败的情况，所以不再会进入这个方法
          * 而是进入ControllerExceptionHandler#processHttpMessageNotReadableException
@@ -298,13 +300,13 @@ public class BasicsController {
      * @ResponseBody 返回汉字String对象时乱码问题的解决方式。
      * @author Deolin
      */
-    @RequestMapping(value = "easy_return", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "easy_return", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String easyReturn() {
         return "汉字";
     }
 
-    @RequestMapping(value = "interaction", method = RequestMethod.POST)
+    @PostMapping("interaction")
     @ResponseBody
     public RequestResult interaction(@RequestBody @Valid InteractionInput input, BindingResult checker) {
         // 这里只是为了演示，实际上这段解析BindingResult对象的代码最好抽到共通类中
