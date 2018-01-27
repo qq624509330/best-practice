@@ -2,7 +2,6 @@ package io.spldeolin.bestpractice.util;
 
 import java.sql.DriverManager;
 import lombok.extern.log4j.Log4j2;
-import redis.clients.jedis.Jedis;
 
 /**
  * 初始化工具类：用于自检运行环境是否正常<br>
@@ -31,22 +30,6 @@ public class EnvironmentChecker {
             return;
         }
         log.info("Mysql环境正常");
-    }
-
-    private void checkRedisConnection() {
-        log.info("开始检查Redis环境");
-        Jedis jedis = new Jedis("localhost", 6379);
-        try {
-            jedis.get("a");
-
-        } catch (Exception e) {
-            log.error("Redis无法连接，系统关闭");
-            System.exit(0);
-            return;
-        } finally {
-            jedis.close();
-        }
-        log.info("Redis环境正常");
     }
 
 }
