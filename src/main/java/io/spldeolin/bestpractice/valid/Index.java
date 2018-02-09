@@ -12,27 +12,30 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import org.springframework.core.annotation.AliasFor;
 
 /**
- * <p>“价格”校验用注解</p>
+ * <p>“可选数字范围”校验用注解</p>
  * <pre>
- * 支持类型：BigDecimal
- * 规则：整数部分不能超过8{integerLength}位，且小数部分不能超过2{decimalLength}位
+ * 支持类型：Integer ...
+ * 规则：必须是{value}的其中之一，如果不指定{value}，则本注解不会产生任何作用
  * </pre>
  */
 @Documented
-@Constraint(validatedBy = {PriceValidator.class})
+@Constraint(validatedBy = {IndexValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
-public @interface Price {
+public @interface Index {
 
-    String message() default "invalid price";
+    String message() default "not choosable";
 
     Class<?>[] groups() default {};
 
-    int integerLength() default 8;
+    @AliasFor("options")
+    int[] value() default {};
 
-    int decimalLength() default 2;
+    @AliasFor("value")
+    int[] options() default {};
 
     Class<? extends Payload>[] payload() default {};
 

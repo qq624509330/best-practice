@@ -15,7 +15,7 @@ import javax.validation.Payload;
 import org.springframework.core.annotation.AliasFor;
 
 /**
- * <p>“可选范围”校验用注解</p>
+ * <p>“可选文字范围”校验用注解</p>
  * <pre>
  * 支持类型：String
  * 规则：必须是{value}的其中之一，如果不指定{value}，则本注解不会产生任何作用

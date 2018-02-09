@@ -1,9 +1,10 @@
 package io.spldeolin.bestpractice.valid;
 
+import java.math.BigDecimal;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PriceStringValidator implements ConstraintValidator<Price, String> {
+public class PriceValidator implements ConstraintValidator<Price, BigDecimal> {
 
     private int integerLength;
 
@@ -16,11 +17,11 @@ public class PriceStringValidator implements ConstraintValidator<Price, String> 
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(BigDecimal value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
-        String[] parts = value.split("\\.");
+        String[] parts = value.toString().split("\\.");
         return parts[0].length() <= integerLength && parts[1].length() <= decimalLength;
     }
 
