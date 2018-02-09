@@ -10,7 +10,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class ControllerAspect {
 
-    @Pointcut("execution(* io.spldeolin.bestpractice.controller.*.*(..))")
+    @Pointcut("execution(* io.spldeolin.bestpractice.controller..*.*(..))")
     public void performance() {}
 
     @Before("performance()")

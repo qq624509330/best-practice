@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class ServiceAspect {
 
-    @Pointcut("execution(* io.spldeolin.bestpractice.service.*.*(..))")
+    @Pointcut("execution(* io.spldeolin.bestpractice.service..*.*(..))")
     public void performance() {}
 
     @Before("performance()")
