@@ -37,6 +37,7 @@
     <!-- 控制层AOP -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <bean class="io.spldeolin.bestpractice.aspect.ControllerAspect" />
+    <bean class="io.spldeolin.bestpractice.aspect.RequestParamValidateAspect" />
 
     <!-- 文件上传 -->
     <bean id="multipartResolver"

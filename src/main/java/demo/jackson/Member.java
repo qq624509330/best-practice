@@ -1,4 +1,4 @@
-package io.spldeolin.bestpractice.util.jackson;
+package demo.jackson;
 
 import lombok.Data;
 

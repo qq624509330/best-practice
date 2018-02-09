@@ -1,4 +1,4 @@
-package io.spldeolin.bestpractice.util.jackson;
+package demo.jackson;
 
 import java.math.BigDecimal;
 import java.util.Date;
